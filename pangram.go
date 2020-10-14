@@ -50,14 +50,17 @@ func matchLetters(input string) []string {
 
 func missingLetters(matchLetters []string) []string {
 	var missingLetters []string
-	for _, value := range alphabet {
+	for i, value := range alphabet {
 		for j, value2 := range matchLetters {
 			if value != value2 {
-				missingLetters = append(missingLetters, value)
+				missingLetters := make([]string, 26)
+				//missingLetters = append(missingLetters, value)
+				missingLetters[i] = value
+				fmt.Println(missingLetters)
 				break
-
 			} else {
 				matchLetters = append(matchLetters[:j], matchLetters[j+1:]...)
+				fmt.Println("Here is missing", missingLetters, "here is a match", matchLetters)
 				break
 			}
 		}
