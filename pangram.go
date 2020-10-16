@@ -43,24 +43,27 @@ func matchLetters(input string) []string {
 		}
 
 	}
-
 	return matchLetters
 
 }
 
 func missingLetters(matchLetters []string) []string {
 	var missingLetters []string
-	for i, value := range alphabet {
+	if len(alphabet) > len(matchLetters) {
+		difference := len(alphabet) - len(matchLetters)
+
+		for ; difference > 0; difference-- {
+			matchLetters = append(matchLetters, "")
+		}
+
+	}
+	for _, value := range alphabet {
 		for j, value2 := range matchLetters {
 			if value != value2 {
-				missingLetters := make([]string, 26)
-				//missingLetters = append(missingLetters, value)
-				missingLetters[i] = value
-				fmt.Println(missingLetters)
+				missingLetters = append(missingLetters, value)
 				break
 			} else {
 				matchLetters = append(matchLetters[:j], matchLetters[j+1:]...)
-				fmt.Println("Here is missing", missingLetters, "here is a match", matchLetters)
 				break
 			}
 		}
@@ -74,6 +77,6 @@ func checkPangram(missingLetters []string) {
 	if len(missingLetters) == 0 {
 		fmt.Println("This is a pangram!")
 	} else {
-		fmt.Printf("This is not a pangram. Missing letters are %v", strings.Join(missingLetters, ", "))
+		fmt.Printf("This is not a pangram. Missing letters are %v\n", strings.Join(missingLetters, ", "))
 	}
 }
